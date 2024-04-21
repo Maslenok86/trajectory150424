@@ -1,10 +1,15 @@
+package Panel;
+
+import Workers.FileWork;
+
 import javax.swing.*;
 
-public class MenuBar extends JMenuBar {
+public class MenuBarPanel extends JMenuBar {
     private JMenuItem defaultFramePosMenuItem;
     private JMenuItem savePosMenuItem;
+    private FileWork fileWork = new FileWork();
 
-    public MenuBar() {
+    public MenuBarPanel(CatalogPanel catalogPanel) {
         JMenu fileMenu = new JMenu("Файл");
 
         JMenuItem openMenuItem = new JMenuItem("Открыть...");
@@ -20,6 +25,8 @@ public class MenuBar extends JMenuBar {
         fileMenu.addSeparator();
         fileMenu.add(closeAllMenuItem);
         this.add(fileMenu);
+
+        openMenuItem.addActionListener(e -> fileWork.addFile(catalogPanel));
 
         JMenu settingsMenu = new JMenu("Настройки");
         defaultFramePosMenuItem = new JMenuItem("Положение окон по умолчанию");

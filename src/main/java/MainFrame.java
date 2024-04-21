@@ -19,6 +19,9 @@ public class MainFrame extends JFrame {
 
         this.setBounds(400, 200, 1300, 750);
 
+        FilePanel filePanel = new FilePanel();
+        CatalogPanel catalogPanel = new CatalogPanel(filePanel);
+
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridBagLayout());
 
@@ -30,7 +33,7 @@ public class MainFrame extends JFrame {
         menuPanel.setLayout(new GridBagLayout());
         menuPanel.setBackground(new Color(91, 155, 213));
 
-        MenuBar menuBar = new MenuBar();
+        MenuBarPanel menuBar = new MenuBarPanel(catalogPanel);
 
         menuBar.getDefaultFramePosMenuItem().addActionListener(e -> defaultFramePosAction());
         menuBar.getSavePosMenuItem().addActionListener(e -> savePosAction());
@@ -46,8 +49,8 @@ public class MainFrame extends JFrame {
         leftHorizontalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         leftHorizontalSplitPane.setDividerLocation(preferences.getInt("leftHorizSplitPane", 325));
         leftHorizontalSplitPane.setContinuousLayout(true);
-        leftHorizontalSplitPane.setTopComponent(new CatalogPanel());
-        leftHorizontalSplitPane.setRightComponent(new FilePanel());
+        leftHorizontalSplitPane.setRightComponent(filePanel);
+        leftHorizontalSplitPane.setTopComponent(catalogPanel);
 
         rightHorizontalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         rightHorizontalSplitPane.setDividerLocation(preferences.getInt("rightHorizSplitPane", 325));
