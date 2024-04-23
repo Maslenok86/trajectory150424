@@ -3,14 +3,12 @@ package Panel;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Objects;
 
 public class FilePanel extends JPanel {
     private JLabel fileLabel = new JLabel("Файл");
-    private JLabel filePathLabel = new JLabel("C:/tmp/12345");
+    private JLabel filePathLabel = new JLabel();
     private JTextArea fileText = new JTextArea();
 
     public FilePanel() {
@@ -37,9 +35,14 @@ public class FilePanel extends JPanel {
         try {
             String content = new String(Files.readAllBytes(Paths.get(path)));
             fileText.setText(content);
+            setFilePathLabel(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setFilePathLabel(String path){
+        filePathLabel.setText(path);
     }
 
     public JTextArea getTextArea() {

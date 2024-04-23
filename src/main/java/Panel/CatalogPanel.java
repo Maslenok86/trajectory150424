@@ -40,12 +40,20 @@ public class CatalogPanel extends JPanel {
                         new Insets(0, 0, 0, 0), 0, 0));
     }
 
-    public void addListModel(String newElement) {
-        listModel.addElement(newElement);
-        addedFilesInfo.put(newElement, newElement);
+    public void addListModel(String newFilePath, String newFileName) {
+        listModel.addElement(newFileName);
+        addedFilesInfo.put(newFileName, newFilePath);
     }
 
     public String getFilePath(String key) {
         return addedFilesInfo.get(key);
+    }
+
+    public boolean isFileExist(String filePath) {
+        return addedFilesInfo.containsValue(filePath);
+    }
+
+    public boolean isListModelExist(String fileName) {
+        return addedFilesInfo.containsKey(fileName);
     }
 }

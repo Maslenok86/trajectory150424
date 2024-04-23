@@ -16,10 +16,6 @@ public class FileWork {
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             openedFile = fileChooser.getSelectedFile();
 
-            final JFrame fileFrame = new JFrame();
-            fileFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            fileFrame.setBounds(500, 300, 300, 350);
-            fileFrame.setLayout(new GridLayout(3, 1));
             final JTextArea fileContent = new JTextArea();
             fileContent.setEditable(false);
 
@@ -28,26 +24,35 @@ public class FileWork {
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
-            fileFrame.add(new JScrollPane(fileContent,
-                    ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS));
+            fileContent.setFont(fileContent.getFont().deriveFont(10f));
+            JScrollPane scrollPane = new JScrollPane(fileContent,
+                    ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+            scrollPane.setPreferredSize(new Dimension(500, 300));
 
-            JButton saveFile = new JButton("Добавить в список");
-            JButton cancel = new JButton("Отмена");
+            if (JOptionPane.showConfirmDialog(null, scrollPane, "Подтвердите файл", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                String newFileName;
+                while (true) {
+                    newFileName = JOptionPane.showInputDialog(null, "Введите новое имя файла", openedFile.getPath());
+                    System.out.println(newFileName);
 
-            saveFile.addActionListener(e -> {
-                catalogPanel.addListModel(openedFile.getPath());
-                fileFrame.dispatchEvent(new WindowEvent(fileFrame, WindowEvent.WINDOW_CLOSING));
-            });
+                    if (catalogPanel.isFileExist(openedFile.getPath())) {
+                        JOptionPane.showMessageDialog(null, "Данный файл уже добавлен.", "Ошибка!", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    } else if (catalogPanel.isListModelExist(newFileName)) {
+                        JOptionPane.showMessageDialog(null, "Данное имя файла уже существует.", "Ошибка!", JOptionPane.ERROR_MESSAGE);
+                    } else if (newFileName != null) {
+                        catalogPanel.addListModel(openedFile.getPath(), newFileName);
+                        break;
+                    } else if (newFileName == null) {
+                        break;
+                    }
+                }
 
-            cancel.addActionListener(e -> {
-                fileFrame.dispatchEvent(new WindowEvent(fileFrame, WindowEvent.WINDOW_CLOSING));
-            });
-            fileFrame.add(saveFile);
-            fileFrame.add(cancel);
-            fileFrame.setVisible(true);
+
+            }
         }
     }
-
+    /*
     public void changeFileText() {
         if (openedFile != null) {
             final JFrame fileFrame = new JFrame();
@@ -88,4 +93,5 @@ public class FileWork {
         } else
             System.out.println("Выберите файл");
     }
+     */
 }
