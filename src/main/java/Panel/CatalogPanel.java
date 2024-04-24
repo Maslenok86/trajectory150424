@@ -11,9 +11,9 @@ public class CatalogPanel extends JPanel {
     private JLabel catalogLabel = new JLabel("Каталог");
     DefaultListModel<String> listModel = new DefaultListModel();
     private JList<String> trajectoryList;
-    private HashMap<String, String> addedFilesInfo = new HashMap<>(); //changedFileName, FilePath
+    private HashMap<String, String> addedFilesInfo = new HashMap<>();
 
-    public CatalogPanel(FilePanel filePanel) {
+    public CatalogPanel(FilePanel filePanel, TablePanel tablePanel) {
         this.setLayout(new GridBagLayout());
         this.add(catalogLabel, new GridBagConstraints(0, 0, 1, 1, 0, 0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
@@ -29,6 +29,7 @@ public class CatalogPanel extends JPanel {
                     String changedFileName = listModel.getElementAt(selected);
 
                     filePanel.setFileText(getFilePath(changedFileName));
+                    tablePanel.setTrajectoryTable(getFilePath(changedFileName));
                 }
             }
         });

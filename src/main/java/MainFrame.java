@@ -20,7 +20,8 @@ public class MainFrame extends JFrame {
         this.setBounds(400, 200, 1300, 750);
 
         FilePanel filePanel = new FilePanel();
-        CatalogPanel catalogPanel = new CatalogPanel(filePanel);
+        TablePanel tablePanel = new TablePanel();
+        CatalogPanel catalogPanel = new CatalogPanel(filePanel, tablePanel);
 
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridBagLayout());
@@ -55,7 +56,7 @@ public class MainFrame extends JFrame {
         rightHorizontalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         rightHorizontalSplitPane.setDividerLocation(preferences.getInt("rightHorizSplitPane", 325));
         rightHorizontalSplitPane.setContinuousLayout(true);
-        rightHorizontalSplitPane.setTopComponent(new TablePanel());
+        rightHorizontalSplitPane.setTopComponent(tablePanel);
         rightHorizontalSplitPane.setRightComponent(new GraphPanel());
 
         verticalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
