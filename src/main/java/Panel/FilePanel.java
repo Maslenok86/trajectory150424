@@ -48,4 +48,8 @@ public class FilePanel extends JPanel {
     public JTextArea getTextArea() {
         return fileText;
     }
+
+    public void clearTextArea(){
+        fileText.setText("");
+    }
 }

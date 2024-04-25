@@ -12,8 +12,13 @@ public class CatalogPanel extends JPanel {
     DefaultListModel<String> listModel = new DefaultListModel();
     private JList<String> trajectoryList;
     private HashMap<String, String> addedFilesInfo = new HashMap<>();
+    private HashMap<String, String> closedFilesInfo = new HashMap<>();
+    private FilePanel localFilePanel;
+    private TablePanel localTablePanel;
 
     public CatalogPanel(FilePanel filePanel, TablePanel tablePanel) {
+        localFilePanel = filePanel;
+        localTablePanel = tablePanel;
         this.setLayout(new GridBagLayout());
         this.add(catalogLabel, new GridBagConstraints(0, 0, 1, 1, 0, 0,
                 GridBagConstraints.CENTER, GridBagConstraints.NONE,
@@ -56,5 +61,16 @@ public class CatalogPanel extends JPanel {
 
     public boolean isListModelExist(String fileName) {
         return addedFilesInfo.containsKey(fileName);
+    }
+
+
+    public void closeAllList(){
+        closedFilesInfo.putAll(addedFilesInfo);
+        addedFilesInfo.clear();
+        listModel.clear();
+
+        localFilePanel.clearTextArea();
+        localTablePanel.clearTable();
+
     }
 }

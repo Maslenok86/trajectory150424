@@ -8,13 +8,14 @@ public class MenuBarPanel extends JMenuBar {
     private JMenuItem defaultFramePosMenuItem;
     private JMenuItem savePosMenuItem;
     private FileWork fileWork = new FileWork();
+    private JMenu closeMenuItem;
 
     public MenuBarPanel(CatalogPanel catalogPanel) {
         JMenu fileMenu = new JMenu("Файл");
 
         JMenuItem openMenuItem = new JMenuItem("Открыть...");
-        JMenuItem openResentMenuItem = new JMenuItem("Открыть недавние");
-        JMenuItem closeMenuItem = new JMenuItem("Закрыть");
+        JMenu openResentMenuItem = new JMenu("Открыть недавние");
+        closeMenuItem = new JMenu("Закрыть");
         JMenuItem closeAllMenuItem = new JMenuItem("Закрыть все");
 
         fileMenu.add(openMenuItem);
@@ -27,7 +28,10 @@ public class MenuBarPanel extends JMenuBar {
         this.add(fileMenu);
 
         openMenuItem.addActionListener(e -> fileWork.addFile(catalogPanel));
+        closeAllMenuItem.addActionListener(e-> {
+            catalogPanel.closeAllList();
 
+        });
         JMenu settingsMenu = new JMenu("Настройки");
         defaultFramePosMenuItem = new JMenuItem("Положение окон по умолчанию");
         savePosMenuItem = new JMenuItem("Сохранить положение окон");
@@ -43,5 +47,10 @@ public class MenuBarPanel extends JMenuBar {
 
     public JMenuItem getSavePosMenuItem() {
         return savePosMenuItem;
+    }
+
+    public void addDeletedFile(String filePath) {
+        JMenuItem item = new JMenuItem(filePath);
+        closeMenuItem.add(item);
     }
 }

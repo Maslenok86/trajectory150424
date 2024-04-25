@@ -62,4 +62,9 @@ public class TablePanel extends JPanel {
         }
         return tableRows;
     }
+
+    public void clearTable(){
+        model.setRowCount(0);
+        model.setColumnCount(0);
+    }
 }
